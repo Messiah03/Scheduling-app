@@ -107,7 +107,7 @@ main{
     margin: 0 auto;
 }
 .task-list{
-    padding: 1rem;
+    padding: 0rem;
 }
 .task-list h2{
     font-size: 1.5rem;
@@ -116,12 +116,15 @@ main{
     color: gray;
 }
 #tasks .task{
-    display: flex;
+    display: block;
+    block-size: auto;
     justify-content: space-between;
-    background-color: var(--darker);
-    border-radius: 1rem;
+    background-color:var(--box-backgrounud);
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: .2rem;
+    padding-bottom: 0;
+    border-style: inset;
+    
     
 
 }
@@ -130,26 +133,40 @@ main{
 }
 #tasks .task .content .text{
     color: black;
-    font-size: 1.125rem;
+    font-size: 0.8rem;
     width: 100%;
     display: block;
     transition: 0.4s;
 }
 
 #tasks .task .content .text:not(:read-only){
-    color: var(--light);
+    color: white;
+    background-color: #000080;
 }
 #tasks .task .actions{
     display: flex;
-    margin: 0 -0.5rem;
+    flex-direction: row;
+    background-color: var(--box-backgrounud);
+    align-items: end;
+    justify-content: end;
+
+   
 }
 
 .task .actions button{
+    background-color: var(--box-backgrounud);
     cursor: pointer;
-    margin: 0 0.5rem;
-    font-size: 1.125rem;
+    margin: 0;
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
+    border-style: outset;
+    padding: 0 0.6rem 0 0.5rem;
+    border-left-color:black ;
+    border-bottom-color:black ;
+
+
 
 }
 .task .actions button:hover{
@@ -160,12 +177,9 @@ main{
 }
 
 .task .actions .edit{
-    background-image: linear-gradient(to left, var(--light), white);
-    color: var(--light);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: black;
 }
 .task .actions .delete{
-    color: rgb(137, 4, 31);
+    color: black;
 }
 
