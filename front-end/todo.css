@@ -99,6 +99,7 @@ input, button{
     opacity: 0.8;
 }
 #new-task-submit:active{
+    opacity: 0.6;
     background-color: #7f7f7fd7;
     border-style: inset;
 }
@@ -181,6 +182,8 @@ main{
 }
 .task .actions button:active{
     opacity: 0.6;
+    background-color: #7f7f7fd7;
+    border-style: inset;
 }
 
 .task .actions .edit{
