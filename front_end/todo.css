@@ -51,7 +51,7 @@ header h1{
 
 }
 #task-manager{
-    display: flex;
+    display: none;
     flex: 0 1 25%;    
     flex-direction: column;
     background-color: var(--box-backgrounud);

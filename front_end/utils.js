@@ -69,10 +69,11 @@ window.addEventListener("load", () => {
 	});
 
 	notes_button.addEventListener("click", () => {
-		if (task_manager.style.display !== "none") {
-			alert("Task manager already open");
-		} else if (task_manager.style.display === "none") {
+		const taskManagerStyle = window.getComputedStyle(task_manager);
+		if (taskManagerStyle.display === "none") {
 			task_manager.style.display = "flex";
+		} else {
+			alert("Task manager already open");
 		}
 	});
 
