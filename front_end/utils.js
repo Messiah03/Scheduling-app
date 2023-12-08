@@ -2,6 +2,8 @@ window.addEventListener("load", () => {
 	const form = document.querySelector("#new-task-form");
 	const input = document.querySelector("#new-task-input");
 	const list_el = document.querySelector("#tasks");
+	const tm_exit_button = document.querySelector("#close-window");
+	const task_manager = document.querySelector("#task-manager");
 
 	const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -46,6 +48,7 @@ window.addEventListener("load", () => {
 				task_input_element.setAttribute("readonly", "readonly");
 				edit_button.innerHTML = "Edit";
 			}
+			
 		});
 
 		delete_button.addEventListener("click", () => {
@@ -58,6 +61,11 @@ window.addEventListener("load", () => {
 				localStorage.setItem("tasks", JSON.stringify(savedTasks));
 			}
 		});
+
+		tm_exit_button.addEventListener("click",()=>{
+			task_manager.style.display = 'none';
+			
+		})
 	});
 
 	form.addEventListener("submit", (e) => {

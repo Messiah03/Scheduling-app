@@ -173,8 +173,29 @@ main{
     border-left-color:black ;
     border-bottom-color:black ;
 
+}
 
+.exit-bar button{
+    font-size: 1rem;
+    font-weight: 1000;
+    border-style: outset;
+    background-color: rgb(242, 27, 27);
+    padding: 0 8px 0 8px;
+}
 
+.exit-bar button:hover{
+    background-color: rgb(255, 0, 0);
+}
+
+.exit-bar button:active{
+    background-color: rgb(244, 18, 18);
+    opacity: 0.6;
+    border-style: inset;
+
+}
+.exit-bar{
+    display: flex;
+    justify-content: end;
 }
 .task .actions button:hover{
     opacity: 0.8;
