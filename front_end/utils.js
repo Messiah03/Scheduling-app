@@ -4,6 +4,10 @@ window.addEventListener("load", () => {
 	const list_el = document.querySelector("#tasks");
 	const tm_exit_button = document.querySelector("#close-window");
 	const task_manager = document.querySelector("#task-manager");
+	const main_apps = document.querySelector('#main-content');
+	const notes_button = document.querySelector("#notes_icon");
+	
+
 
 	const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -62,10 +66,18 @@ window.addEventListener("load", () => {
 			}
 		});
 
-		tm_exit_button.addEventListener("click",()=>{
-			task_manager.style.display = 'none';
-			
-		})
+	});
+
+	notes_button.addEventListener("click", () => {
+		if (task_manager.style.display !== "none") {
+			alert("Task manager already open");
+		} else if (task_manager.style.display === "none") {
+			task_manager.style.display = "flex";
+		}
+	});
+
+	tm_exit_button.addEventListener("click", () => {
+		task_manager.style.display = "none";
 	});
 
 	form.addEventListener("submit", (e) => {

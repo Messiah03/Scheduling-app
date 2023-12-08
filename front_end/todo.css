@@ -27,7 +27,7 @@ body{
     font-family: 'MS-Sans-Serif';
 }
 header{
-    padding: 2rem 1rem;
+    padding: 0.8rem 0.5rem;
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
@@ -41,10 +41,14 @@ header h1{
     background-color: var(--title-background);
     border-style: outset;
     border-width:5px;
+    text-align: center;
 
 }
 #main-content{
-    background-color: var(--box-backgrounud);
+    background-color: var(--backgrounud);
+    display: flex;
+    flex-direction: column;
+
 }
 #task-manager{
     display: flex;
