@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 const app = express();
 import { fileURLToPath } from "url";
+import compression from "compression";
 
 app.disable();
 const __filename = fileURLToPath(import.meta.url);
@@ -15,19 +16,23 @@ const cfg = {
 		},
 	},
 };
-
+app.use(compression());
 app.use(express.static(cfg.dir.root.path));
-app.use((req, res) => {
-	res.status(404).send("Not found");
-});
+
+
 app.get("/", (req, resp) => {
 	resp.sendFile(path.join(cfg.dir.root.path, cfg.dir.root.file));
 });
 
-console.dir(cfg, { depth: null, color: true });
+app.get("/chat",(req, res)=>{
+	res.send("Comming soon");
+})
 
+app.use((req, res) => {
+	res.status(404).send("Not found");
+});
 app.listen(cfg.port, () => {
 	console.log(`Listening! (port ${cfg.port})`);
 });
-
+console.dir(cfg, { depth: null, color: true });
 export { cfg, app };
