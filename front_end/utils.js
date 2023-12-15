@@ -127,11 +127,11 @@ window.addEventListener("load", () => {
 			if (edit_button.innerHTML.toLowerCase() == "edit") {
 				task_input_element.removeAttribute("readonly");
 				task_input_element.focus();
-				edit_button.innerHTML = "Save";
-			} else {
+				edit_button.innerHTML = "Save";	
+			}else {
 				task_input_element.setAttribute("readonly", "readonly");
 				edit_button.innerHTML = "Edit";
-			}
+				}
 		});
 
 		delete_button.addEventListener("click", () => {
