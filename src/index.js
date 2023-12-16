@@ -17,15 +17,25 @@ const cfg = {
 	},
 };
 app.use(compression());
+app.use(express.json());
 app.use(express.static(cfg.dir.root.path));
+app.use(express.urlencoded({ extended: true }));
 
-
-app.get("/", (req, resp) => {
+app.all("/", (req, resp, next) => {
+	if(req.method==='GET'||req.method==='POST'){
+	const dataFromClient = req.body;
+	console.log(dataFromClient);
 	resp.sendFile(path.join(cfg.dir.root.path, cfg.dir.root.file));
+	}
+	else{
+		next();
+	}
 });
 
-app.get("/chat",(req, res)=>{
+
+app.get("/chat/:id",(req, res, next)=>{
 	res.send("Comming soon");
+	next();
 })
 
 app.use((req, res) => {
