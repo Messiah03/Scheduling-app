@@ -18,7 +18,7 @@ body{
 }
 @font-face {
     font-family: "MS-Sans-Serif";
-    src: url('../../../assets/fonts_icons/ms-sans-serif-1/ms-sans-serif-1.ttf') format('truetype');
+    src: url('ms-sans-serif-1.ttf') format('truetype');
 }
 
 *{

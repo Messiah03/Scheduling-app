@@ -4,43 +4,42 @@ const app = express();
 import { fileURLToPath } from "url";
 import compression from "compression";
 
-app.disable();
+
+app.disable("x-powered-by");
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename) + path.sep;
 console.log(__dirname);
 const cfg = {
 	port: 3000,
 	dir: {
-		root: {
-			path: path.join(__dirname, 'services', 'scheduling', 'todo', 'views'),
-			file: "Todo.html",
+		root: __dirname,
+		todo: __dirname + "services" + "/scheduling" + "/todo",
+		views: __dirname + "services" + "/scheduling" + "/todo" + "/views",
+		controller:
+			__dirname + "services" + "/scheduling" + "/todo" + "/controllers",
+		assets: {
+			icons: __dirname + "assets" +'/icons',
+			fonts: __dirname + 'assets' + '/font_icons' +'/ms-sans-serif-1',
 		},
 	},
 };
 console.log(cfg.dir.root.path);
 app.use(compression());
 app.use(express.json());
-app.use(express.static(cfg.dir.root.path));
+
+app.use(express.static(cfg.dir.todo));
+app.use(express.static(cfg.dir.assets.fonts));
+app.use(express.static(cfg.dir.assets.icons));
+app.use(express.static(cfg.dir.controller));
+app.use(express.static(cfg.dir.views));
 app.use(express.urlencoded({ extended: true }));
 
-app.all("/", (req, resp, next) => {
-	if(req.method==='GET'||req.method==='POST'){
-	const dataFromClient = req.body;
-	console.log(dataFromClient);
-	resp.sendFile(
-		path.join(cfg.dir.root.path, cfg.dir.root.file)
-	);
-	}
-	else{
-		next();
-	}
-});
+import todoRoutes from "./services/scheduling/todo/routes/todoRouter.js";
+app.use('/', todoRoutes)
 
 
-app.get("/chat/:id",(req, res, next)=>{
-	res.send("Comming soon");
-	next();
-})
+
 
 app.use((req, res) => {
 	res.status(404).send("Not found");
