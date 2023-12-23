@@ -3,8 +3,14 @@ import path from "path";
 const app = express();
 import { fileURLToPath } from "url";
 import compression from "compression";
+import Todo from "./services/scheduling/todo/models/todoModel.js";
+import { mongoose } from "mongoose";
 
-
+const mongo_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/Schedule"
+mongoose.connect(mongo_URI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 app.disable("x-powered-by");
 
 const __filename = fileURLToPath(import.meta.url);
@@ -37,7 +43,6 @@ app.use(express.urlencoded({ extended: true }));
 
 import todoRoutes from "./services/scheduling/todo/routes/todoRouter.js";
 app.use('/', todoRoutes)
-
 
 
 

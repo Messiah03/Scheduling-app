@@ -2,6 +2,8 @@
 import { Router } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import Todo from "./../models/todoModel.js";
+
 
 
 
@@ -15,15 +17,19 @@ const cfg ={
         file:"Todo.html"
     }
 }
-todoRoutes.all("/", (req, res, next)=>{
-    if(req.method ==='GET'|| req.method ==='POST'){
-        const dataFromClient = req.body;
-        console.log(dataFromClient);
-        res.sendFile(path.join(cfg.views.path, cfg.views.file));
-    } else{
-        next();
-    }
+todoRoutes.get("/", (req, res)=>{
+    res.sendFile(path.join(cfg.views.path, cfg.views.file));
 })
-
+todoRoutes.post("/", (req, res)=>{
+    const todo = new Todo({
+			task: req.body.task,
+			created: req.body.date,
+		});
+        todo.save()
+        .then(result=>{
+            res.redirect("/")
+        })
+    console.log(todo);
+})
 
 export default todoRoutes;

@@ -96,7 +96,7 @@ window.addEventListener("load", () => {
 		try {
 			const dataToSend = {
 				task: task,
-				date: currentDate.toDateString(),
+				date: currentDate,
 				time: time,
 			};
 			console.log(dataToSend);
