@@ -17,9 +17,15 @@ const cfg ={
         file:"Todo.html"
     }
 }
-todoRoutes.get("/", (req, res)=>{
-    res.sendFile(path.join(cfg.views.path, cfg.views.file));
+todoRoutes.get("/data", (req, res)=>{
+    Todo.find()
+    .then(result=>{
+        res.json({ data: result });
+    })
 })
+todoRoutes.get("/", (req, res) => {
+	res.sendFile(path.join(cfg.views.path, cfg.views.file));
+});
 todoRoutes.post("/", (req, res)=>{
     const todo = new Todo({
 			task: req.body.task,
@@ -30,6 +36,14 @@ todoRoutes.post("/", (req, res)=>{
             res.redirect("/")
         })
     console.log(todo);
+})
+
+todoRoutes.delete("/data/:id", (req, res)=>{
+    Todo.findByIdAndDelete(req.params.id)
+    .then(result=>{
+        console.log(result);
+        res.send("Task deleted successfully.");
+    });
 })
 
 export default todoRoutes;

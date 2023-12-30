@@ -5,7 +5,7 @@ window.addEventListener("load", () => {
 	const list_el = document.querySelector("#tasks");
 	const tm_exit_button = document.querySelector("#close-window");
 	const task_manager = document.querySelector("#task-manager");
-	const main_apps = document.querySelector("#main-content");
+	const main_apps = document.querySelector(".apps");
 	const notes_button = document.querySelector("#notes_icon");
 
 	const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -52,10 +52,20 @@ window.addEventListener("load", () => {
 			}
 		});
 
-		delete_button.addEventListener("click", () => {
+		delete_button.addEventListener("click", async() => {
 			list_el.removeChild(task_elemnt);
 			// Remove the task from savedTasks array
 			const index = savedTasks.indexOf(task);
+			try{
+			const resp = await fetch(`http://localhost:3000/data/${id}`, {
+				method: "DELETE",
+			});
+			if (!resp.ok) {
+				throw new Error(`Http errer ${resp.staus}`);
+			}
+			} catch (error) {
+			console.error("Error:", error);
+		}
 			if (index !== -1) {
 				savedTasks.splice(index, 1);
 				// Update localStorage
@@ -72,6 +82,8 @@ window.addEventListener("load", () => {
 		const taskManagerStyle = window.getComputedStyle(task_manager);
 		if (taskManagerStyle.display === "none") {
 			task_manager.style.display = "flex";
+			notes_button.style.display = "none";
+
 		} else {
 			alert("Task manager already open");
 		}
@@ -79,40 +91,16 @@ window.addEventListener("load", () => {
 
 	tm_exit_button.addEventListener("click", () => {
 		task_manager.style.display = "none";
+		notes_button.style.display = "block";
 	});
 
 	form.addEventListener("submit", async (e) => {
-		const currentDate = new Date();
-		const hours = currentDate.getHours();
-		const minutes = currentDate.getMinutes();
-		const time = `${hours}:${minutes}`;
 		e.preventDefault();
 
 		const task = input.value;
 		if (!task) {
 			alert("Please fill out the task");
 			return;
-		}
-		try {
-			const dataToSend = {
-				task: task,
-				date: currentDate,
-				time: time,
-			};
-			console.log(dataToSend);
-			const resp = await fetch("http://localhost:3000/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(dataToSend),
-			});
-
-			if (!resp.ok) {
-				throw new Error(`Http errer ${resp.staus}`);
-			}
-		} catch (error) {
-			console.error("Error:", error);
 		}
 
 		createform(task);
@@ -122,5 +110,6 @@ window.addEventListener("load", () => {
 
 		// Save the updated tasks to localStorage
 		localStorage.setItem("tasks", JSON.stringify(savedTasks));
+		input.value="";
 	});
 });
